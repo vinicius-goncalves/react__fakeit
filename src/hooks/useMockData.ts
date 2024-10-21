@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useMockDataParamsModule } from './useMockDataParamsModule';
+import { useSearchParamsConstructor } from './useSearchParamsConstructor';
 
 export interface MockData {
     id: string;
@@ -11,7 +11,8 @@ type NewMockData = Omit<MockData, 'id'>;
 
 export function useMockData() {
     const [mockData, setMockDataList] = useState<MockData[]>([]);
-    const { insertIntoSearchParams, updateSearchParams, deleteFromSearchParams } = useMockDataParamsModule(mockData);
+    const { insertMockDataInSearchParams, updateMockDataIntoSearchParams, deleteMockDataFromSearchParams } =
+        useSearchParamsConstructor(mockData);
 
     const findMockData = useCallback(
         (id: string) => {
@@ -23,7 +24,7 @@ export function useMockData() {
     const insertMockData = useCallback(
         (value: MockData) => {
             setMockDataList((prevList) => [...prevList, value]);
-            insertIntoSearchParams(value);
+            insertMockDataInSearchParams(value);
         },
         [mockData],
     );
@@ -31,7 +32,7 @@ export function useMockData() {
     const deleteMockData = useCallback(
         (id: string) => {
             setMockDataList((prevMockData) => prevMockData.filter((mockData) => mockData.id !== id));
-            deleteFromSearchParams(id);
+            deleteMockDataFromSearchParams(id);
         },
         [mockData],
     );
@@ -48,7 +49,7 @@ export function useMockData() {
                 ),
             );
 
-            updateSearchParams({ ...mockDataFound, ...newValue }, mockData);
+            updateMockDataIntoSearchParams({ ...mockDataFound, ...newValue }, mockData);
         },
         [mockData],
     );

@@ -33,7 +33,7 @@ function ModulesCardSelect({
     }, [value]);
 
     return (
-        <Card className={cn('w-screen max-w-lg')}>
+        <Card className={cn('w-screen max-w-lg rounded-none')}>
             <CardHeader>
                 <CardTitle className={cn('text-2xl')}>Available Modules</CardTitle>
                 <CardDescription>These are the same modules available in faker.js</CardDescription>
